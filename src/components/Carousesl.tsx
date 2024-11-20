@@ -2,21 +2,31 @@
 
 import { Carousel } from "flowbite-react";
 import Image from "next/image";
-import Image1 from "@/assets/Timnas3.jpg";
-import Image2 from "@/assets/Timnas2.jpeg";
-import Image3 from "@/assets/timnas4.jpeg";
+import Image1 from "@/assets/berita_1.png";
+import Image2 from "@/assets/berita_2.png";
+import Image3 from "@/assets/berita_3.png";
+import Link from "next/link";
 const ImageList = [
   {
     id: "Image1",
-    src: Image1, // Tambahkan src untuk setiap gambar
+    src: Image1,
+    description: "SMK TELKOM MALANG X TIMNAS INDONESIA",
+    keterangan: "SMK TELKOM MALANG BERKONTRIBUSI UNTUK TIMNAS INDONESIA U-17 DALAM KUALIFIKASI PIALA DUNIA",
+    link: "https://timesindonesia.co.id/indonesia-positif/469929/smk-telkom-malang-berkontribusi-di-timnas-indonesia-yang-tampil-di-piala-dunia-u17-2023Kategori%20Berita%20%20%20%20Informasi%20Umum%20%20%20%20Prestasi%20%20%20%20Agenda%20Sekolah%20%20%20%20Pengumuman%20Siswa%20%20%20%20Pengumuman%20Pegawai%20%20%20%20Pengumuman%20Orang%20Tua%20Siswa%20%20%20%20Karya%20SiswaInfo%20Terbaru" // Tambahkan src untuk setiap gambar
   },
   {
     id: "Image2",
-    src: Image2,
+    src: Image2,  
+    description: "KOMITMEN SMK TELKOM MALANG",
+    keterangan: "KOMITMEN SMK TELKOM MALANG UNTUK MENINGKATKAN KUALITAS LULUSAN",
+    link: "https://jatim-timur.tribunnews.com/2024/11/18/berkomitmen-cetak-lulusan-berkualitas-smk-telkom-malang-kerja-sama-dengan-markle-inovasi-teknologi"
   },
   {
     id: "Image3",
     src: Image3,
+    description: "SMK TELKOM MALANG X JAGOAN HOSTING",
+    keterangan: "TELKOM MALANG BERKOLABORASI DENGAN INDUSTRI BESAR",
+    link: "https://www.jagoanhosting.com/blog/kerjasama-smk-telkom/"
   },
 ];
 
@@ -31,7 +41,7 @@ export function Component() {
             snap: "snap-x",
           },
           control: {
-            base: "inline-flex m-[1rem] h-10 w-10 items-center justify-center border-2 border-white sm:w-10 sm:h-10",
+            base: "inline-flex m-[1rem] h-10 w-10 items-center bg-[#BE1E2D] justify-center border-2 border-white sm:w-10 sm:h-10",
           },
           indicators: {
             base: "h-[15px] w-[30px] rounded-[3px]",
@@ -54,16 +64,17 @@ export function Component() {
               layout="fill"
               objectFit="cover"
             />
-            <div className="text-white absolute text-left bottom-[63px] left-[248px] max-sm:left-[3rem] max-lg:left-[7rem] ">
-              <h1 className="text-5xl font-extrabold max-sm:text-2xl">
-                Timnas Indonesia 
+            <div className="text-white absolute text-left bottom-[150px] left-[200px] max-sm:bottom-[80px] max-sm:left-[3rem] max-lg:left-[7rem] ">
+              <h1 className="text-4xl font-extrabold text-red-600 max-md:hidden max-sm:text-2xl">
+               {imageItem.description}
               </h1>
-              <p className="text-xl mt-[10px] mb-[20px] max-sm:text-sm">
-                Timnas Indonesia Siap Menjamu Arab Saudi<br /> Pada Kualifikasi Piala Dunia
-              </p>
-              <button className="border-white border-2 py-[0.8rem] text-lg font-bold w-[60%] max-sm:py-[0.3rem] hover:bg-primaryRed hover:border-primaryRed duration-200">
-                Read
-              </button>
+              <p className="text-xl font-bold text-red-600 max-sm:hidden" >{imageItem.keterangan}</p>
+              <p className="text-md font-bold max-sm:text-sm" ></p>
+              <Link href={imageItem.link} target="_blank">
+              <button className="group border-primaryRed border-2 py-[0.8rem] text-lg font-bold w-[30%] max-sm:py-[0.3rem] duration-200 hover:bg-primaryRed hover:border-primaryRed">
+             <h1 className="group-hover:text-white text-primaryRed">Baca</h1>
+            </button>
+            </Link>
             </div>
           </div>
         ))}
