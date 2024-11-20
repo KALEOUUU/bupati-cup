@@ -2,5 +2,5 @@ import axios from "axios"
 
 
 export const axiosInstance = axios.create({
-    baseURL: "http://localhost:1111/api/v1",
-  });git 
+    baseURL: "http://localhost:5000/api/v1",
+  });
