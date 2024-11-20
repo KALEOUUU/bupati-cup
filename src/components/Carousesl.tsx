@@ -2,9 +2,9 @@
 
 import { Carousel } from "flowbite-react";
 import Image from "next/image";
-import Image1 from "@/assets/berita_1.png";
-import Image2 from "@/assets/berita_2.png";
-import Image3 from "@/assets/berita_3.png";
+import Image1 from "@/assets/news.jpg";
+import Image2 from "@/assets/news2.jpg";
+import Image3 from "@/assets/image_327.jpg";
 import Link from "next/link";
 const ImageList = [
   {
@@ -65,14 +65,14 @@ export function Component() {
               objectFit="cover"
             />
             <div className="text-white absolute text-left bottom-[150px] left-[200px] max-sm:bottom-[80px] max-sm:left-[3rem] max-lg:left-[7rem] ">
-              <h1 className="text-4xl font-extrabold text-red-600 max-md:hidden max-sm:text-2xl">
+              <h1 className="text-4xl font-extrabold text-white max-md:hidden max-sm:text-2xl">
                {imageItem.description}
               </h1>
-              <p className="text-xl font-bold text-red-600 max-sm:hidden" >{imageItem.keterangan}</p>
+              <p className="text-xl font-bold text-white max-sm:hidden" >{imageItem.keterangan}</p>
               <p className="text-md font-bold max-sm:text-sm" ></p>
               <Link href={imageItem.link} target="_blank">
-              <button className="group border-primaryRed border-2 py-[0.8rem] text-lg font-bold w-[30%] max-sm:py-[0.3rem] duration-200 hover:bg-primaryRed hover:border-primaryRed">
-             <h1 className="group-hover:text-white text-primaryRed">Baca</h1>
+              <button className="group border-white border-2 py-[0.8rem] text-lg font-bold w-[30%] max-sm:py-[0.3rem] duration-200 hover:bg-primaryRed hover:border-primaryRed">
+             <h1 className="group-hover:text-white text-white">Baca</h1>
             </button>
             </Link>
             </div>
