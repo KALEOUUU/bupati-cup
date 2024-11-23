@@ -1,19 +1,22 @@
-import logo from "../assets/IMMORTAL CUP.png"; // Make sure this path is correct
+// import logo from "../assets/IMMORTAL CUP.png"; // Make sure this path is correct
+import Link from "next/link";
+import Image from "next/image";
 
-const Footer = () => {
+export function Footer() {
+
   return (
-    <footer className="bg-primaryRed dark:bg-gray-900 space-y-6">
+    <footer className="bg-[#133E87] dark:bg-gray-900 space-y-6">
       <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
         <div className="md:flex md:justify-between">
           {/* Logo Section */}
           <div className="mb-6 md:mb-0">
-            <a href="/" className="">
+            <Link href="/" className="">
               <div className="h-8 mr-3" ></div>
               <span className="text-2xl font-semibold text-white justify-start">
                 SportTechnology <br />
                 Moklet
               </span>
-            </a>
+            </Link>
           </div>
 
           {/* Information Section */}
@@ -74,4 +77,24 @@ const Footer = () => {
   );
 };
 
-export default Footer;
+export function Sponsor() {
+  return (
+    <div className="flex flex-col items-center container py-8 bg-gray-50 w-full ml-24 mb-2">
+    <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
+      {Array.from({ length: 4 }).map((_, i) => (
+        <div key={i} className="flex flex-col items-center">
+          <Image
+            src="/placeholder.svg?height=60&width=200"
+            alt="Sponsor logo"
+            width={200}
+            height={60}
+            className="dark:invert"
+          />
+          <span className="mt-2 text-sm text-gray-600">Official Partner</span>
+        </div>
+      ))}
+    </div>
+  </div>
+  )
+}
+

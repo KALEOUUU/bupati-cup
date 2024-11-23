@@ -16,6 +16,6 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/feature/fetchData.js", "src/components/StandingsTable.tsx"],
+  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "src/feature/fetchData.js", "src/components/header.tsx"],
   "exclude": ["node_modules"]
 }
