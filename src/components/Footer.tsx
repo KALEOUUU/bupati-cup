@@ -5,7 +5,7 @@ import Image from "next/image";
 export function Footer() {
 
   return (
-    <footer className="bg-[#133E87] dark:bg-gray-900 space-y-6">
+    <footer className="bg-primaryRed dark:bg-gray-900 space-y-6">
       <div className="mx-auto w-full max-w-screen-xl p-4 py-6 lg:py-8">
         <div className="md:flex md:justify-between">
           {/* Logo Section */}
