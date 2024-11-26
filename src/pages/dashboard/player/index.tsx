@@ -1,51 +1,94 @@
-import Image from "next/image";
-import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader } from "@/components/ui/card";
-import { Player } from "@/pages/types/dashboard";
+import { Sidebar } from "@/components/sideBar";
+// import { TeamCard } from "@/components/teamCard";
+// import { MatchList } from "@/components/matchList";
+import { PlayerCard } from "@/components/playerCard";
 
-interface PlayerCardProps {
-  player: Player;
-  onEdit: (player: Player) => Promise<void>;
-}
+// const teams = [
+//   {
+//     id: "1",
+//     name: "Setan Merah",
+//     group: "A",
+//     stats: {
+//       matches: 10,
+//       wins: 2,
+//       losses: 0,
+//       points: 22,
+//     },
+//   },
+//   {
+//     id: "2",
+//     name: "Setan Setan",
+//     group: "B",
+//     stats: {
+//       matches: 10,
+//       wins: 2,
+//       losses: 0,
+//       points: 22,
+//     },
+//   },
+// ];
 
-export default function PlayerCard({ player, onEdit }: PlayerCardProps) {
-  const handleEdit = () => onEdit(player);
+const players = [
+  {
+    id: "1",
+    name: "Cristiano Ronaldo",
+    number: 7,
+    position: "Forward",
+    stats: {
+      goals: 12,
+      assists: 8,
+    },
+    imageUrl: "/ronaldo.jpg",
+  },
+  {
+    id: "2",
+    name: "Lionel Messi",
+    number: 10,
+    position: "Forward",
+    stats: {
+      goals: 15,
+      assists: 10,
+    },
+    imageUrl: "/messi.jpg",
+  },
+  {
+    id: "3",
+    name: "Paul Pogba",
+    number: 6,
+    position: "Midfielder",
+    stats: {
+      goals: 5,
+      assists: 12,
+    },
+    imageUrl: "/pogba.jpg",
+  },
+];
 
+export default function DashboardPage() {
   return (
-    <Card className="relative overflow-hidden">
-      <CardHeader className="p-0">
-        <div className="relative h-48 w-full">
-          <Image
-            src={player.imageUrl || "/placeholder.svg"}
-            alt={player.name}
-            fill
-            className="object-cover"
-          />
-          <div className="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black/60 to-transparent p-4 text-white">
-            <h3 className="text-xl font-bold">{player.name}</h3>
-            <div className="flex items-center justify-between">
-              <span>{player.position}</span>
-              <span className="text-2xl font-bold">{player.number}</span>
+    <div className="flex min-h-screen bg-[#FFF1F2]">
+      <div className="w-64 bg-background">
+        <Sidebar />
+      </div>
+      <main className="flex-1 p-8">
+        <div className="mb-8">
+          <h1 className="text-2xl font-bold text-black">Dashboard</h1>
+        </div>
+        <div className="grid gap-8 lg:grid-cols-2 xl:grid-cols-3">
+          {/* Players Section */}
+          <div className="lg:col-span-1 xl:col-span-2">
+            <div className="grid gap-8 md:grid-cols-2">
+              {players.map((player) => (
+                <PlayerCard
+                  key={player.id}
+                  player={player}
+                  onEdit={(player) => console.log("Editing player:", player)}
+                />
+              ))}
             </div>
           </div>
         </div>
-      </CardHeader>
-      <CardContent className="p-4">
-        <div className="flex items-center justify-between">
-          <div className="space-y-1">
-            <div className="text-sm">Goals: {player.stats.goals}</div>
-            <div className="text-sm">Assists: {player.stats.assists}</div>
-          </div>
-          <Button
-            variant="secondary"
-            size="sm"
-            onClick={handleEdit}
-          >
-            Edit
-          </Button>
-        </div>
-      </CardContent>
-    </Card>
+      </main>
+    </div>
   );
 }
-

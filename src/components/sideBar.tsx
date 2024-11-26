@@ -31,7 +31,7 @@ export function Sidebar() {
   }
 
   return (
-    <div className={`min-h-screen ${isCollapsed ? 'w-16' : 'w-64'} bg-white p-6 flex flex-col transition-all duration-300 ease-in-out relative`}>
+    <div className={`min-h-full ${isCollapsed ? 'w-16' : 'w-64'} bg-white p-6 flex flex-col transition-all duration-300 ease-in-out relative`}>
       <div className={`mb-8 ${isCollapsed ? 'hidden' : ''}`}>
         <h1 className="text-red-600 text-2xl font-bold">IMMORTAL CUP</h1>
       </div>
