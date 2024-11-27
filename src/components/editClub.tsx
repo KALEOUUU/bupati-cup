@@ -33,7 +33,7 @@ export function EditClub({ team, trigger }: EditClubDialogProps) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>{trigger}</DialogTrigger>
-      <DialogContent className="sm:max-w-[425px] bg-white">
+      <DialogContent className="sm:max-w-[425px] bg-white text-black">
         <DialogHeader>
           <DialogTitle className="text-black">Edit Club</DialogTitle>
           <DialogDescription className="text-black">

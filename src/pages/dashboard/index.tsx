@@ -1,6 +1,7 @@
 import { Sidebar } from "@/components/sideBar"
 import { GroupList } from "@/components/groupList"
 
+
 export default function Dashboard() {
   return (
     <div className="flex min-h-screen bg-[#FFF1F2]">
