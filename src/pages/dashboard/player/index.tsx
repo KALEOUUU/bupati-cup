@@ -1,94 +1,68 @@
-import { Sidebar } from "@/components/sideBar";
-// import { TeamCard } from "@/components/teamCard";
-// import { MatchList } from "@/components/matchList";
-import { PlayerCard } from "@/components/playerCard";
+'use client'
 
-// const teams = [
-//   {
-//     id: "1",
-//     name: "Setan Merah",
-//     group: "A",
-//     stats: {
-//       matches: 10,
-//       wins: 2,
-//       losses: 0,
-//       points: 22,
-//     },
-//   },
-//   {
-//     id: "2",
-//     name: "Setan Setan",
-//     group: "B",
-//     stats: {
-//       matches: 10,
-//       wins: 2,
-//       losses: 0,
-//       points: 22,
-//     },
-//   },
-// ];
+import { useState } from 'react'
+import { PlayerCard } from '@/components/playerCard'
+import { Sidebar } from '@/components/sideBar'
 
-const players = [
-  {
-    id: "1",
-    name: "Cristiano Ronaldo",
-    number: 7,
-    position: "Forward",
-    stats: {
+interface Player {
+  id: number;
+  name: string;
+  position: string;
+  number: number;
+  goals: number;
+  assists: number;
+  image: string;
+}
+
+export default function PlayerDashboard() {
+  const [players, setPlayers] = useState<Player[]>([
+    {
+      id: 1,
+      name: 'Cristiano Ronaldo',
+      position: 'Forward',
+      number: 7,
       goals: 12,
       assists: 8,
+      image: '/path-to-ronaldo-image.jpg'
     },
-    imageUrl: "/ronaldo.jpg",
-  },
-  {
-    id: "2",
-    name: "Lionel Messi",
-    number: 10,
-    position: "Forward",
-    stats: {
+    {
+      id: 2,
+      name: 'Lionel Messi',
+      position: 'Forward',
+      number: 10,
       goals: 15,
       assists: 10,
+      image: '/path-to-messi-image.jpg'
     },
-    imageUrl: "/messi.jpg",
-  },
-  {
-    id: "3",
-    name: "Paul Pogba",
-    number: 6,
-    position: "Midfielder",
-    stats: {
-      goals: 5,
-      assists: 12,
-    },
-    imageUrl: "/pogba.jpg",
-  },
-];
+    // ... other players
+  ]);
 
-export default function DashboardPage() {
+  const handleStatsUpdate = (playerId: number, stats: { goals: number; assists: number }) => {
+    console.log(`Updating stats for player ${playerId}:`, stats)
+    setPlayers(players.map(player => 
+      player.id === playerId 
+        ? { ...player, ...stats }
+        : player
+    ));
+    // Here you would typically update your database
+  }
+
   return (
-    <div className="flex min-h-screen bg-[#FFF1F2]">
-      <div className="w-64 bg-background">
-        <Sidebar />
-      </div>
-      <main className="flex-1 p-8">
-        <div className="mb-8">
-          <h1 className="text-2xl font-bold text-black">Dashboard</h1>
-        </div>
-        <div className="grid gap-8 lg:grid-cols-2 xl:grid-cols-3">
-          {/* Players Section */}
-          <div className="lg:col-span-1 xl:col-span-2">
-            <div className="grid gap-8 md:grid-cols-2">
-              {players.map((player) => (
-                <PlayerCard
-                  key={player.id}
-                  player={player}
-                  onEdit={(player) => console.log("Editing player:", player)}
-                />
-              ))}
-            </div>
-          </div>
+    <div className="flex h-screen bg-red-100">
+      <Sidebar />
+      <main className="flex-1 overflow-y-auto p-6 text-black">
+        <h1 className="text-2xl font-bold mb-6">Player Dashboard</h1>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {players.map((player) => (
+            <PlayerCard
+              key={player.id}
+              player={player}
+              onStatsUpdate={handleStatsUpdate}
+            />
+          ))}
         </div>
       </main>
     </div>
-  );
+  )
 }
+

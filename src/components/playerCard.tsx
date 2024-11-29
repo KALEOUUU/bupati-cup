@@ -13,39 +13,47 @@ import {
   SelectContent,
   SelectItem,
 } from "@/components/ui/select";
+import { Minus, Plus, Trophy, Star, Medal } from 'lucide-react';
 
 interface Player {
-  id: string;
+  id: number;
   name: string;
   position: string;
   number: number;
+  goals: number;
+  assists: number;
   image: string;
-  stats: {
-    goals: number;
-    assists: number;
+  achievements?: {
+    playerOfMatch: boolean;
+    mostValuable: boolean;
+    mvp: boolean;
   };
 }
 
 interface PlayerCardProps {
   player: Player;
-  onUpdate: (updatedPlayer: Player) => void;
+  onStatsUpdate: (playerId: number, stats: { goals: number; assists: number }) => void;
+  onAchievementUpdate?: (playerId: number, achievements: Player['achievements']) => void;
 }
 
-export function PlayerCard({ player, onUpdate }: PlayerCardProps) {
-  const [editedStats, setEditedStats] = useState(player.stats);
+export function PlayerCard({ player, onStatsUpdate, onAchievementUpdate }: PlayerCardProps) {
   const [editedPlayer, setEditedPlayer] = useState({
     name: player.name,
     position: player.position,
     number: player.number,
     image: player.image,
   });
+  const [goals, setGoals] = useState(player.goals);
+  const [assists, setAssists] = useState(player.assists);
+  const [achievements, setAchievements] = useState(player.achievements || {
+    playerOfMatch: false,
+    mostValuable: false,
+    mvp: false,
+  });
 
   const handleSave = () => {
-    onUpdate({
-      ...player,
-      ...editedPlayer,
-      stats: editedStats,
-    });
+    // Here you would typically update your database or state management
+    console.log("Saving player details:", editedPlayer);
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -58,13 +66,33 @@ export function PlayerCard({ player, onUpdate }: PlayerCardProps) {
     }
   };
 
+  const updateStats = (type: 'goals' | 'assists', increment: boolean) => {
+    const setter = type === 'goals' ? setGoals : setAssists;
+    const currentValue = type === 'goals' ? goals : assists;
+    const newValue = increment ? currentValue + 1 : Math.max(0, currentValue - 1);
+    setter(newValue);
+    onStatsUpdate(player.id, { goals: type === 'goals' ? newValue : goals, assists: type === 'assists' ? newValue : assists });
+  };
+
+  const toggleAchievement = (type: keyof Player['achievements']) => {
+    setAchievements(prev => {
+      const newAchievements = {
+        ...prev,
+        [type]: !prev[type]
+      };
+      onAchievementUpdate?.(player.id, newAchievements);
+      return newAchievements;
+    });
+  };
+
   return (
     <div className="bg-white rounded-lg overflow-hidden shadow text-black">
       <div className="relative h-48">
         <Image
           src={editedPlayer.image}
           alt={player.name}
-          className="w-full h-full object-cover"
+          layout="fill"
+          objectFit="cover"
         />
         <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60 to-transparent text-white">
           <h3 className="text-xl font-semibold">{editedPlayer.name}</h3>
@@ -74,15 +102,96 @@ export function PlayerCard({ player, onUpdate }: PlayerCardProps) {
           </div>
         </div>
       </div>
-      <div className="p-4 flex items-center justify-between">
-        <div className="space-y-1">
-          <p className="text-sm">Goals: {editedStats.goals}</p>
-          <p className="text-sm">Assists: {editedStats.assists}</p>
+      <div className="p-4 space-y-4">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-2">
+            <span className="text-sm font-medium">Goals: {goals}</span>
+            <div className="flex gap-1">
+              <Button
+                variant="outline"
+                size="icon"
+                className="h-6 w-6 rounded-full"
+                onClick={() => updateStats('goals', false)}
+              >
+                <Minus className="h-3 w-3" />
+                <span className="sr-only">Decrease goals</span>
+              </Button>
+              <Button
+                variant="outline"
+                size="icon"
+                className="h-6 w-6 rounded-full"
+                onClick={() => updateStats('goals', true)}
+              >
+                <Plus className="h-3 w-3" />
+                <span className="sr-only">Increase goals</span>
+              </Button>
+            </div>
+          </div>
+          <div className="flex items-center gap-2">
+            <span className="text-sm font-medium">Assists: {assists}</span>
+            <div className="flex gap-1">
+              <Button
+                variant="outline"
+                size="icon"
+                className="h-6 w-6 rounded-full"
+                onClick={() => updateStats('assists', false)}
+              >
+                <Minus className="h-3 w-3" />
+                <span className="sr-only">Decrease assists</span>
+              </Button>
+              <Button
+                variant="outline"
+                size="icon"
+                className="h-6 w-6 rounded-full"
+                onClick={() => updateStats('assists', true)}
+              >
+                <Plus className="h-3 w-3" />
+                <span className="sr-only">Increase assists</span>
+              </Button>
+            </div>
+          </div>
         </div>
+
+        <div className="flex gap-2 justify-center">
+          <Button
+            variant={achievements.playerOfMatch ? "default" : "outline"}
+            size="sm"
+            className={`flex items-center gap-1 ${
+              achievements.playerOfMatch ? 'bg-red-600 hover:bg-red-700' : 'hover:bg-red-50'
+            }`}
+            onClick={() => toggleAchievement('playerOfMatch')}
+          >
+            <Trophy className="h-4 w-4" />
+            <span className="text-xs">POTM</span>
+          </Button>
+          <Button
+            variant={achievements.mostValuable ? "default" : "outline"}
+            size="sm"
+            className={`flex items-center gap-1 ${
+              achievements.mostValuable ? 'bg-red-600 hover:bg-red-700' : 'hover:bg-red-50'
+            }`}
+            onClick={() => toggleAchievement('mostValuable')}
+          >
+            <Star className="h-4 w-4" />
+            <span className="text-xs">MVP</span>
+          </Button>
+          <Button
+            variant={achievements.mvp ? "default" : "outline"}
+            size="sm"
+            className={`flex items-center gap-1 ${
+              achievements.mvp ? 'bg-red-600 hover:bg-red-700' : 'hover:bg-red-50'
+            }`}
+            onClick={() => toggleAchievement('mvp')}
+          >
+            <Medal className="h-4 w-4" />
+            <span className="text-xs">Best Player</span>
+          </Button>
+        </div>
+
         <Popover>
           <PopoverTrigger asChild>
-            <Button variant="ghost" className="text-gray-600 hover:text-gray-900">
-              Edit
+            <Button variant="outline" className="w-full">
+              Edit Player Details
             </Button>
           </PopoverTrigger>
           <PopoverContent className="w-80">
@@ -98,7 +207,6 @@ export function PlayerCard({ player, onUpdate }: PlayerCardProps) {
                   <Label htmlFor="name">Name</Label>
                   <Input
                     id="name"
-                    type="text"
                     value={editedPlayer.name}
                     onChange={(e) =>
                       setEditedPlayer((prev) => ({
@@ -111,7 +219,6 @@ export function PlayerCard({ player, onUpdate }: PlayerCardProps) {
                 <div>
                   <Label htmlFor="position">Player Position</Label>
                   <Select
-                    name="position"
                     value={editedPlayer.position}
                     onValueChange={(value) =>
                       setEditedPlayer((prev) => ({
@@ -120,7 +227,7 @@ export function PlayerCard({ player, onUpdate }: PlayerCardProps) {
                       }))
                     }
                   >
-                    <SelectTrigger>
+                    <SelectTrigger id="position">
                       <SelectValue placeholder="Select position" />
                     </SelectTrigger>
                     <SelectContent>
@@ -149,43 +256,13 @@ export function PlayerCard({ player, onUpdate }: PlayerCardProps) {
                   <Label htmlFor="photo">Player Photo</Label>
                   <Input
                     id="photo"
-                    name="photo"
                     type="file"
-                    className="text-black"
                     onChange={handleFileChange}
                     accept="image/*"
                   />
                 </div>
-                <div>
-                  <Label htmlFor="goals">Goals</Label>
-                  <Input
-                    id="goals"
-                    type="number"
-                    value={editedStats.goals}
-                    onChange={(e) =>
-                      setEditedStats((prev) => ({
-                        ...prev,
-                        goals: parseInt(e.target.value) || 0,
-                      }))
-                    }
-                  />
-                </div>
-                <div>
-                  <Label htmlFor="assists">Assists</Label>
-                  <Input
-                    id="assists"
-                    type="number"
-                    value={editedStats.assists}
-                    onChange={(e) =>
-                      setEditedStats((prev) => ({
-                        ...prev,
-                        assists: parseInt(e.target.value) || 0,
-                      }))
-                    }
-                  />
-                </div>
               </div>
-              <Button type="submit" onClick={handleSave} className="w-full">
+              <Button onClick={handleSave} className="w-full">
                 Save Changes
               </Button>
             </div>
@@ -195,3 +272,4 @@ export function PlayerCard({ player, onUpdate }: PlayerCardProps) {
     </div>
   );
 }
+

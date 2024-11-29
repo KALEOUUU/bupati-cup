@@ -69,51 +69,6 @@ export function EditClub({ team, trigger }: EditClubDialogProps) {
             <Label htmlFor="logo" className="text-black">Club Logo</Label>
             <Input id="logo" type="file" accept="image/*"/>
           </div>
-          <div className="grid gap-2">
-            <Label htmlFor="matches" className="text-black">Total Matches</Label>
-            <Input
-              id="matches"
-              type="number"
-              defaultValue={team.stats.matches}
-              className="text-black"
-            />
-          </div>
-          <div className="grid gap-2">
-            <Label htmlFor="matches" className="text-black">Menang</Label>
-            <Input
-              id="matches"
-              type="number"
-              defaultValue={team.stats.matches}
-              className="text-black"
-            />
-          </div>
-          <div className="grid gap-2">
-            <Label htmlFor="wins" className="text-black">Seri</Label>
-            <Input
-              id="wins"
-              type="number"
-              defaultValue={team.stats.wins}
-              className="text-black"
-            />
-          </div>
-          <div className="grid gap-2">
-            <Label htmlFor="losses" className="text-black">Kalah</Label>
-            <Input
-              id="losses"
-              type="number"
-              defaultValue={team.stats.losses}
-              className="text-black"
-            />
-          </div>
-          <div className="grid gap-2">
-            <Label htmlFor="points" className="text-black">Points</Label>
-            <Input
-              id="points"
-              type="number"
-              defaultValue={team.stats.points}
-              className="text-black"
-            />
-          </div>
           <DialogFooter>
             <Button type="submit" className="text-[#BE1E2D] bg-[#FFF1F2] hover:bg-[#BE1E2D] hover:text-[#FFF1F2]" >Save Changes</Button>
           </DialogFooter>
