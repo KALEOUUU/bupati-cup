@@ -1,6 +1,7 @@
-import { useState } from "react";
-import { axiosInstance } from "@/lib/axios";
+import { useEffect, useState } from "react";
 import Image from "next/image";
+import axios from "axios";
+import { socket } from "@/config/config";
 
 interface Club {
   id: number;
@@ -17,8 +18,8 @@ interface Club {
 }
 
 interface ClasementGroup {
-  group_name: string;
-  club_list: Club[];
+  group: string;
+  list_club: Club[];
 }
 
 const Clasement: React.FC = () => {
@@ -29,7 +30,7 @@ const Clasement: React.FC = () => {
   const fetcher = async () => {
     try {
       setIsLoading(true);
-      const response = await axiosInstance.get("/user/clasement");
+      const response = await axios.get("http://localhost:3000/api/v1/user/clasements")
 
       // Ensure the response contains the expected format
       if (response.data && Array.isArray(response.data.message)) {
@@ -38,11 +39,12 @@ const Clasement: React.FC = () => {
         // Sort club list by points descending
         const sortedData = response.data.message.map((group: ClasementGroup) => ({
           ...group,
-          club_list: group.club_list.sort((a, b) => b.poin - a.poin),
+          list_club: group.list_club.sort((a, b) => b.poin - a.poin),
         }));
         
-        return sortedData;
+        setData(sortedData)
       } else {
+        alert("silahkan rrefresh halaman")
         setError("Invalid data format received");
       }
     } catch (error) {
@@ -52,7 +54,16 @@ const Clasement: React.FC = () => {
     }
   };
 
+  useEffect(() => {
+    fetcher()
 
+    socket.on("change_data_group", async () => await fetcher())
+
+    return () => {
+      socket.off("change_data_news")
+    }
+
+  }, [])
 
   return (
     <div className="w-full px-2 py-8 bg-gray-50">
@@ -64,9 +75,9 @@ const Clasement: React.FC = () => {
             <p className="text-center text-primaryRed p-4">Error: {error}</p>
           ) : data && data.length > 0 ? (
             data.map((group: ClasementGroup) => (
-              <div key={group.group_name} className="mb-8">
+              <div key={group.group} className="mb-8">
                 <div className="bg-primaryRed rounded-t-lg text-white p-2">
-                  <h2 className="text-center text-xl font-bold">Klasemen Group {group.group_name}</h2>
+                  <h2 className="text-center text-xl font-bold">Klasemen Group {group.group}</h2>
                 </div>
 
                 <div className="p-3 bg-white">
@@ -87,7 +98,7 @@ const Clasement: React.FC = () => {
                         </tr>
                       </thead>
                       <tbody>
-                        {group.club_list.map((club, clubIndex) => (
+                        {group.list_club.map((club, clubIndex) => (
                           <tr
                             key={club.id}
                             className={`
