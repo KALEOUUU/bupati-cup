@@ -14,10 +14,7 @@ interface Group {
 
 export function GroupList() {
   const [groups, setGroups] = useState<Group[]>([
-    { id: '1', name: 'Group A', teams: ['Tim 1', 'Tim 2', 'Tim 3', 'Tim 4'] },
-    { id: '2', name: 'Group B', teams: ['Tim 1', 'Tim 2', 'Tim 3', 'Tim 4'] },
-    { id: '3', name: 'Group C', teams: ['Tim 1', 'Tim 2', 'Tim 3', 'Tim 4'] },
-    { id: '4', name: 'Group D', teams: ['Tim 1', 'Tim 2', 'Tim 3', 'Tim 4'] },
+   
   ])
 
   const [editingGroup, setEditingGroup] = useState<string | null>(null)
