@@ -58,7 +58,21 @@ const config: Config = {
   			lg: 'var(--radius)',
   			md: 'calc(var(--radius) - 2px)',
   			sm: 'calc(var(--radius) - 4px)'
-  		}
+  		},
+		  animation: {
+			'scroll-right': 'scroll-right 40s linear infinite',
+			'scroll-right-2': 'scroll-right-2 40s linear infinite',
+		  },
+		  keyframes: {
+			'scroll-right': {
+			  '0%': { transform: 'translateX(0%)' },
+			  '100%': { transform: 'translateX(-100%)' }
+			},
+			'scroll-right-2': {
+			  '0%': { transform: 'translateX(100%)' },
+			  '100%': { transform: 'translateX(0%)' }
+			}
+		  },
   	}
   },
   plugins: [flowbite.plugin(), require("tailwindcss-animate")],
