@@ -9,11 +9,14 @@ export function SiteHeader() {
             <i>BUPATI CUP </i>
           </Link>
           <div className="flex gap-4 sm:gap-6">
-            <Link href="/news" className="text-2xl font-bold hover:text-white/80 max-md:hidden">
+            <Link href="/News" className="text-2xl font-bold hover:text-white/80 max-md:hidden">
               <i>News</i>
             </Link>
             <Link href="/klasement" className="text-2xl font-bold hover:text-white/80 max-md:hidden">
               <i>Klasement</i>
+            </Link>
+            <Link href="/profile" className="text-2xl font-bold hover:text-white/80 max-md:hidden">
+              <i>Profile</i>
             </Link>
           </div>
         </div>

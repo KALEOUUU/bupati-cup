@@ -1,7 +1,11 @@
 import React from 'react';
 import Image from 'next/image';
-import Messi from "../../public/messi.jpeg"
-const logos = [Messi,Messi,Messi,Messi]
+import Pln from "@/assets/pln.jpg"
+import Bank from "@/assets/bank-jatim.png"
+import Tsm from "@/assets/tsm.png"
+import Kazoku from "@/assets/kazoku.png"
+import Aqnu from "@/assets/aqnu.jpeg"
+const logos = [Bank, Pln,Tsm,Kazoku, Aqnu]
 
 export default function ScrollingLogoBanner () {
     const duplicatedLogos = [...logos, ...logos, ...logos, ...logos];
@@ -13,7 +17,7 @@ export default function ScrollingLogoBanner () {
               {duplicatedLogos.map((logoSrc, index) => (
                 <div
                   key={`logo-${index}`}
-                  className="flex-shrink-0 mx-4 bg-white rounded-lg p-2 shadow-md flex items-center justify-center h-[150px]"
+                  className="flex-shrink-0 mx-4 bg-transparent rounded-lg p-2 shadow-md flex items-center justify-center h-[150px]"
                   style={{
                     minWidth: '200px',
                   }}
@@ -32,7 +36,7 @@ export default function ScrollingLogoBanner () {
               {duplicatedLogos.map((logoSrc, index) => (
                 <div
                   key={`logo-duplicate-${index}`}
-                  className="flex-shrink-0 mx-4 bg-white rounded-lg p-2 shadow-md flex items-center justify-center h-[150px]"
+                  className="flex-shrink-0 mx-4 bg-transparent rounded-lg p-2 shadow-md flex items-center justify-center h-[150px]"
                   style={{
                     minWidth: '200px',
                   }}

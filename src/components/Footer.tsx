@@ -1,6 +1,7 @@
 // import logo from "../assets/IMMORTAL CUP.png"; // Make sure this path is correct
 import Link from "next/link";
 import Image from "next/image";
+import Bank from "@/assets/bank-jatim.png"
 
 export function Footer() {
 
@@ -78,23 +79,33 @@ export function Footer() {
 };
 
 export function Sponsor() {
+  const sponsors = [
+    { logo: "@/assets/bank-jatim.png", name: "Partner 1" },
+    { logo: "@/assets/pln.jpg", name: "Partner 2" },
+    { logo: "@/assets/tsm.png", name: "Partner 3" },
+    { logo: "@/assets/kazoku.png", name: "Partner 4" },
+    { logo: "@/assets/aqnu.jpeg", name: "Partner 5" },
+  ];
+
+  const defaultLogo = "/path/to/default-logo.png"; // Gambar default baru
+
   return (
     <div className="flex flex-col items-center container py-8 bg-gray-50 w-full ml-24 mb-2">
-    <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
-      {Array.from({ length: 4 }).map((_, i) => (
-        <div key={i} className="flex flex-col items-center">
-          <Image
-            src="/placeholder.svg?height=60&width=200"
-            alt="Sponsor logo"
-            width={200}
-            height={60}
-            className="dark:invert"
-          />
-          <span className="mt-2 text-sm text-gray-600">Official Partner</span>
-        </div>
-      ))}
+      <div className="grid grid-cols-2 gap-8 md:grid-cols-4">
+        {sponsors.map((sponsor, i) => (
+          <div key={i} className="flex flex-col items-center">
+            <Image
+              src={sponsor.logo || defaultLogo} // Gunakan default jika logo kosong
+              alt={`${sponsor.name} logo`}
+              width={200}
+              height={60}
+              className="dark:invert"
+            />
+            <span className="mt-2 text-sm text-gray-600">{sponsor.name}</span>
+          </div>
+        ))}
+      </div>
     </div>
-  </div>
-  )
+  );
 }
 

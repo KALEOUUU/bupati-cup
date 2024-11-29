@@ -1,5 +1,6 @@
 import Image from "next/image"
 import Link from "next/link"
+import image from "@/assets/bank-jatim.png"
 
 import { cn } from "@/lib/utils"
 
