@@ -34,7 +34,7 @@ export function AddClub({ onClose }: { onClose: () => void }) {
   }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4 p-4 bg-white rounded-lg shadow">
+    <form onSubmit={handleSubmit} className="space-y-4 p-4 bg-white rounded-lg shadow text-black">
       <h2 className="text-xl font-bold mb-4 text-black">Add New Club</h2>
       
       <div>

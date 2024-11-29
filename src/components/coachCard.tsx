@@ -21,9 +21,10 @@ interface Coach {
 interface CoachCardProps {
   coach: Coach;
   onAchievementUpdate?: (coachId: number, achievements: Coach["achievements"]) => void;
+  onClose?: () => void; // Tambahkan properti ini
 }
 
-export function CoachCard({ coach, onAchievementUpdate }: CoachCardProps) {
+export function CoachCard({ coach, onAchievementUpdate, onClose }: CoachCardProps) {
   const [editCoach, setEditCoach] = useState({
     name: coach.name,
     image: coach.image,
@@ -35,8 +36,8 @@ export function CoachCard({ coach, onAchievementUpdate }: CoachCardProps) {
   });
 
   const handleSave = () => {
-    // Here you would typically update your database or state management
     console.log("Saving coach details:", editCoach);
+    onClose?.(); // Panggil onClose jika tersedia
   };
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
