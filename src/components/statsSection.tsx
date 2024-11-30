@@ -1,82 +1,120 @@
-'use client'
+"use client"
 
-import { Minus, Plus } from 'lucide-react'
-import { Button } from "@/components/ui/button"
-import { useState } from 'react'
+import * as React from "react"
+import Image from "next/image"
+import { Card, CardContent } from "@/components/ui/card"
+import { Award} from 'lucide-react'
+import axios from "axios"
+import { socket } from "@/config/config"
 
-interface PlayerStatsProps {
-  initialGoals: number
-  initialAssists: number
-  onUpdate?: (stats: { goals: number; assists: number }) => void
+interface PlayerData {
+  name: string;
+  club: string;
+  goal: number | string;
+  assist: number | string;
+  no: number | string;
+  posisi: string;
+  foto: string;
 }
 
-export function PlayerStats({ initialGoals, initialAssists, onUpdate }: PlayerStatsProps) {
-  const [goals, setGoals] = useState(initialGoals)
-  const [assists, setAssists] = useState(initialAssists)
+interface CoachData {
+  foto: string;
+  name: string;
+  club: string;
+}
 
-  const updateStats = (type: 'goals' | 'assists', increment: boolean) => {
-    const setValue = type === 'goals' ? setGoals : setAssists
-    const currentValue = type === 'goals' ? goals : assists
-    
-    const newValue = increment ? currentValue + 1 : Math.max(0, currentValue - 1)
-    setValue(newValue)
-    
-    onUpdate?.({
-      goals: type === 'goals' ? newValue : goals,
-      assists: type === 'assists' ? newValue : assists
-    })
+interface message {
+  type: string,
+  data: PlayerData[] | CoachData[]
+}
+
+export default function StatsSection() {
+  const [isLoading, setIsLoading] = React.useState(true)
+  const [dataHighlight, setData] = React.useState<message[]>([])
+
+  const fetchData = async () => {
+    setIsLoading(true)
+    try {
+      const res = await axios.get("http://localhost:3000/api/v1/user/highligh")
+      setData(res.data.message)
+    } catch (error) {
+      alert(error)
+    } finally {
+      setIsLoading(false)
+    }
   }
 
+  React.useEffect(() => {
+    fetchData()
+
+    socket.on("change_data_highlight", async () => {
+      fetchData()
+    } )
+
+    return () => {
+      socket.off("change_data_news")
+    }
+
+  }, [])
+
+  if (isLoading) {
+    return (
+      <center>
+        <div className="w-[calc(100%-20px)] h-[500px] flex items-center justify-center">
+          <div className="animate-spin rounded-full h-32 w-32 border-t-2 border-b-2 border-primaryRed"></div>
+        </div>
+      </center>
+    )
+  }
+  
   return (
-    <div className="space-y-4">
-      <div className="flex items-center gap-4">
-        <span className="min-w-20">Gol : {goals}</span>
-        <div className="flex gap-2">
-          <Button
-            variant="outline"
-            size="icon"
-            className="h-8 w-8 rounded-full"
-            onClick={() => updateStats('goals', false)}
-          >
-            <Minus className="h-4 w-4" />
-            <span className="sr-only">Decrease goals</span>
-          </Button>
-          <Button
-            variant="outline"
-            size="icon"
-            className="h-8 w-8 rounded-full"
-            onClick={() => updateStats('goals', true)}
-          >
-            <Plus className="h-4 w-4" />
-            <span className="sr-only">Increase goals</span>
-          </Button>
+    <section className="bg-gradient-to-r from-red-600 to-red-800 sm:py-12 md:py-16">
+      <div className="container mx-auto px-4 py-5">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
+          {dataHighlight.map((highlight, index) => (
+            highlight.data.map((item: any, dataIndex: number) => (
+              <Card key={`${index}-${dataIndex}`} className="bg-white border-none transition-all duration-300 hover:shadow-xl w-full">
+                <CardContent className="p-4 flex flex-col h-full">
+                  <div className="flex items-center justify-between mb-4">
+                    <h3 className="text-lg font-semibold text-gray-800">{highlight.type}</h3>
+                    <Award className="w-6 h-6 text-red-600" />
+                  </div>
+                  <div className="w-full aspect-square relative mb-4 rounded-lg overflow-hidden group">
+                    <Image
+                      src={item.foto}
+                      alt={item.name}
+                      layout="fill"
+                      objectFit="cover"
+                      className="transition-all duration-300 group-hover:scale-110"
+                    />
+                  </div>
+                  <div className="flex-grow space-y-2">
+                    <p className="text-xl font-bold text-gray-900 line-clamp-1">{item.name}</p>
+                    {'posisi' in item && (
+                      <p className="text-lg text-black font-bold">
+                        #{item.no} · {item.posisi}
+                      </p>
+                    )}
+                    <p className="text-lg text-black line-clamp-1">{item.club}</p>
+                    {'goal' in item ? (
+                      <div className="flex justify-between mt-2">
+                        <div className="text-center">
+                          <span className="text-md font-bold text-black">Goals</span>
+                          <p className="text-lg font-bold text-red-600">{item.goal}</p>
+                        </div>
+                        <div className="text-center">
+                          <span className="text-md font-bold text-black">Assists</span>
+                          <p className="text-lg font-bold text-red-600">{item.assist}</p>
+                        </div>
+                      </div>
+                    ) : null}
+                  </div>
+                </CardContent>
+              </Card>
+            ))
+          ))}
         </div>
       </div>
-      
-      <div className="flex items-center gap-4">
-        <span className="min-w-20">Assists : {assists}</span>
-        <div className="flex gap-2">
-          <Button
-            variant="outline"
-            size="icon"
-            className="h-8 w-8 rounded-full"
-            onClick={() => updateStats('assists', false)}
-          >
-            <Minus className="h-4 w-4" />
-            <span className="sr-only">Decrease assists</span>
-          </Button>
-          <Button
-            variant="outline"
-            size="icon"
-            className="h-8 w-8 rounded-full"
-            onClick={() => updateStats('assists', true)}
-          >
-            <Plus className="h-4 w-4" />
-            <span className="sr-only">Increase assists</span>
-          </Button>
-        </div>
-      </div>
-    </div>
+    </section>
   )
 }
-
