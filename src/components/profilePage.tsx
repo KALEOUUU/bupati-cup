@@ -257,7 +257,7 @@ export default function BupatiCupProfile() {
                     <CardContent>
                       <p><span className="font-medium">Koordinator:</span> Avin Rachmad</p>
                       <p><span className="font-medium">Wakil Koordinator:</span> Gagas Adi</p>
-                      <p><span className="font-medium">Anggota:</span> Sai'in, Mardi</p>
+                      <p><span className="font-medium">Anggota:</span> Saiin, Mardi</p>
                     </CardContent>
                   </Card>
                   <Card>

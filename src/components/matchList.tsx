@@ -10,7 +10,7 @@ export function MatchList({ matches }: MatchesListProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle>Pertandingan</CardTitle>
+        <CardTitle></CardTitle>
       </CardHeader>
       <CardContent>
         <div className="flex flex-col gap-4">

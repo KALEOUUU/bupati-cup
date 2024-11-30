@@ -5,20 +5,51 @@ import { useRouter } from 'next/navigation'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import { Card, CardContent, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { ChevronRight } from 'lucide-react'
+import axios from 'axios'
+import Cookies from 'js-cookie'
 
 export default function LoginPage() {
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
+  const [error, setError] = useState('')
   const router = useRouter()
 
-  const handleSubmit = (e: React.FormEvent) => {
+  // Submit login form
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Here you would typically handle the login logic
-    console.log('Login attempted with:', username, password)
-    // For now, we'll just redirect to the dashboard
-    router.push('/dashboard')
+    setError('') // Reset error state
+    console.log('Submitting login with:', { username, password }) // Debugging log
+
+    try {
+      const response = await axios.post('http://localhost:3000/api/v1/auth/', {
+        username,
+        password,
+      })
+
+      console.log('Login successful:', response.data) // Debugging log
+
+      if (response.data.token) {
+        // Save token to cookies using js-cookie
+        Cookies.set('token', response.data.token, {
+          secure: process.env.NODE_ENV === 'production',
+          sameSite: 'strict',
+          expires: 7 // 7 days
+        })
+
+        router.push('/dashboard')
+      } else {
+        setError('Invalid response from server. Token missing.')
+      }
+    } catch (err: unknown) {
+      if (axios.isAxiosError(err) && err.response) {
+        setError(err.response.data?.message || 'Login failed. Please check your credentials.')
+      } else {
+        setError('An error occurred. Please try again.')
+      }
+      console.error('Login error:', err)
+    }
   }
 
   return (
@@ -30,6 +61,11 @@ export default function LoginPage() {
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit}>
+            {error && (
+              <div className="mb-4 p-2 text-sm text-red-600 bg-red-100 rounded">
+                {error}
+              </div>
+            )}
             <div className="space-y-4">
               <div className="space-y-2">
                 <Label htmlFor="username">Username</Label>
@@ -47,6 +83,7 @@ export default function LoginPage() {
                 <Input 
                   id="password" 
                   type="password"
+                  placeholder="Enter your password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
                   required

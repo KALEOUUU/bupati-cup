@@ -5,7 +5,7 @@ import Image from "next/image"
 import { Card, CardContent } from "@/components/ui/card"
 import { Award} from 'lucide-react'
 import axios from "axios"
-import { socket } from "@/config/config"
+import {socket} from "@/config/config"
 
 interface PlayerData {
   name: string;
@@ -37,9 +37,9 @@ export default function StatsSection() {
     try {
       const res = await axios.get("http://localhost:3000/api/v1/user/highligh")
       setData(res.data.message)
-    } catch (error) {
-      alert(error)
-    } finally {
+    } catch(error) {
+      console.log(error)
+    }finally {
       setIsLoading(false)
     }
   }
@@ -72,7 +72,7 @@ export default function StatsSection() {
       <div className="container mx-auto px-4 py-5">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
           {dataHighlight.map((highlight, index) => (
-            highlight.data.map((item: any, dataIndex: number) => (
+            highlight.data.map((item, dataIndex: number) => (
               <Card key={`${index}-${dataIndex}`} className="bg-white border-none transition-all duration-300 hover:shadow-xl w-full">
                 <CardContent className="p-4 flex flex-col h-full">
                   <div className="flex items-center justify-between mb-4">
