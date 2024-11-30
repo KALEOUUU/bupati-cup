@@ -77,7 +77,7 @@ export function GroupList() {
       })
       setGroups(response.data.message)
     } catch (error) {
-      alert(error)
+      alert("Failed to retrieve club data")
     }
   }
 
