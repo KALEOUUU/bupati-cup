@@ -54,30 +54,12 @@ export function AddClub({ onClose }: { onClose: () => void }) {
 
       alert('Klub berhasil ditambahkan')
       setClubData({ nama: '', groupId: '', photo: null })
-      fetchClubs()
       onClose()
     } catch (error) {
       alert('Gagal menambahkan klub')
       console.error(error)
     } finally {
       setSubmitting(false)
-    }
-  }
-
-  const fetchClubs = async () => {
-    setLoading(true)
-    try {
-      const token = Cookies.get('token')
-      await axios.get("http://localhost:3000/api/v1/admin/club/getAll", {
-        headers: {
-          'Authorization': `Bearer ${token}`
-        }
-      })
-    } catch (error) {
-      console.error(error)
-      alert('Gagal mengambil data klub')
-    } finally {
-      setLoading(false)
     }
   }
 
@@ -101,7 +83,6 @@ export function AddClub({ onClose }: { onClose: () => void }) {
     }
 
     fetchGroups()
-    fetchClubs()
   }, [])
 
   if (loading) {

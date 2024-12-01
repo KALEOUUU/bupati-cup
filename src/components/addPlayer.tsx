@@ -1,10 +1,13 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select"
+import axios from 'axios'
+import Cookie from 'js-cookie'
 
 export function AddPlayerForm({ onClose }: { onClose: () => void }) {
+  const [clubs, setClubs] = useState<{id: string, nama: string}[]>([])
   const [playerData, setPlayerData] = useState({
     name: '',
     club: '',
@@ -12,6 +15,24 @@ export function AddPlayerForm({ onClose }: { onClose: () => void }) {
     number: '',
     photo: null as File | null,
   })
+
+  const fetchClubs = async () => {
+    try {
+      const token = Cookie.get('token')
+      const response = await axios.get('http://localhost:3000/api/v1/admin/club/getAll', {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
+      setClubs(response.data.message)
+    } catch (err) {
+      console.error('Error fetching clubs:', err)
+    }
+  }
+
+  useEffect(() => {
+    fetchClubs()
+  }, [])
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement> | { target: { name: string; value: string } }) => {
     const { name, value } = e.target
@@ -43,8 +64,23 @@ export function AddPlayerForm({ onClose }: { onClose: () => void }) {
       </div>
       
       <div>
-        <Label htmlFor="club" className='text-black'>Club Name</Label>
-        <Input id="club" name="club" value={playerData.club} onChange={handleInputChange} required />
+        <Label htmlFor="club" className='text-black'>Club</Label>
+        <Select name="club" value={playerData.club} onValueChange={(value) => handleInputChange({ target: { name: 'club', value } })}>
+          <SelectTrigger className="bg-white text-black border-black">
+            <SelectValue placeholder="Select club" className='text-black' />
+          </SelectTrigger>
+          <SelectContent className='bg-white text-black'>
+            {clubs.map((club) => (
+              <SelectItem 
+                key={club.id} 
+                value={club.id.toString()} 
+                className='text-black hover:bg-gray-100'
+              >
+                {club.nama}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
       </div>
       
       <div>
@@ -79,4 +115,3 @@ export function AddPlayerForm({ onClose }: { onClose: () => void }) {
     </form>
   )
 }
-

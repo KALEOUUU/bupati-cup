@@ -1,27 +1,19 @@
-export interface TeamStats {
-    matches: number
-    wins: number
-    losses: number
-    points: number
-  }
+
   
   export interface Team {
-    id: string
-    name: string
-    group: string
-    stats: TeamStats
+    id: number,
+    main: number,
+    club_nama: string,
+    photo: string,
+    menang: number,
+    seri: number,
+    kalah: number,
+    kebobolan: number,
+    goal: number,
+    selisih: number,
+    poin: number
   }
   
-  export interface Match {
-    id: string
-    homeTeam: Team
-    awayTeam: Team
-    score?: {
-      home: number
-      away: number
-    }
-    date: string
-  }
   
   export interface PlayerStats {
     goals: number

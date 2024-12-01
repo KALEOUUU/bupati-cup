@@ -49,11 +49,11 @@ export function EditClub({ team, trigger }: EditClubDialogProps) {
         >
           <div className="grid gap-2">
             <Label htmlFor="name" className="text-black">Club Name</Label>
-            <Input id="name" defaultValue={team.name} className="text-black" />
+            <Input id="name" defaultValue={team.club_nama} className="text-black" />
           </div>
           <div className="grid gap-2">
             <Label htmlFor="group" className="text-black">Group</Label>
-            <Select defaultValue={team.group} >
+            <Select defaultValue={team.club_nama} >
               <SelectTrigger id="group" className="text-black">
                 <SelectValue placeholder="Select group" className="text-black"/>
               </SelectTrigger>

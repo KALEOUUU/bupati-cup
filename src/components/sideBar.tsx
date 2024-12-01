@@ -94,7 +94,7 @@ export function Sidebar({ initialActiveDashboard = 'group' }: SidebarProps) {
       {/* Sidebar Header */}
       <div className="mb-8">
         {!isCollapsed && (
-          <h1 className="text-red-600 text-xl font-bold tracking-wide">IMMORTAL CUP</h1>
+          <h1 className="text-red-600 text-xl font-bold tracking-wide">BUPATI CUP</h1>
         )}
       </div>
 
