@@ -43,7 +43,7 @@ export function PlayerDashboard() {
     setLoading(true);
     try {
       const token = Cookies.get("token");
-      const response = await axios.get("http://localhost:3000/api/v1/admin/pemain", {
+      const response = await axios.get("https://be-most.smktelkom-mlg.sch.id/api/v1/admin/pemain", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -77,7 +77,7 @@ export function PlayerDashboard() {
   const fetchMvp = async () => {
     try {
       const token = Cookies.get("token");
-      const response = await axios.get("http://localhost:3000/api/v1/admin/mvp", {
+      const response = await axios.get("https://be-most.smktelkom-mlg.sch.id/api/v1/admin/mvp", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -112,7 +112,7 @@ export function PlayerDashboard() {
   const fetchGoat = async () => {
     try {
       const token = Cookies.get("token");
-      const response = await axios.get("http://localhost:3000/api/v1/admin/manOfTheMatch", {
+      const response = await axios.get("https://be-most.smktelkom-mlg.sch.id/api/v1/admin/manOfTheMatch", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -159,7 +159,7 @@ export function PlayerDashboard() {
       formData.append("posisi", updatedPlayer.position);
       
       await axios.put(
-        `http://localhost:3000/api/v1/admin/pemain/${updatedPlayer.id}`,
+        `https://be-most.smktelkom-mlg.sch.id/api/v1/admin/pemain/${updatedPlayer.id}`,
         formData,
         {
           headers: {
@@ -184,7 +184,7 @@ export function PlayerDashboard() {
     setLoading(true);
     try {
       const token = Cookies.get("token");
-      await axios.delete(`http://localhost:3000/api/v1/admin/pemain/${id}`, {
+      await axios.delete(`https://be-most.smktelkom-mlg.sch.id/api/v1/admin/pemain/${id}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -203,14 +203,14 @@ export function PlayerDashboard() {
     try {
       const token = Cookies.get("token");
       if (mvp?.player.id === player.id) {
-        await axios.delete(`http://localhost:3000/api/v1/admin/mvp/${mvp.id}`, {
+        await axios.delete(`https://be-most.smktelkom-mlg.sch.id/api/v1/admin/mvp/${mvp.id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
       } else {
         await axios.post(
-          "http://localhost:3000/api/v1/admin/mvp",
+          "https://be-most.smktelkom-mlg.sch.id/api/v1/admin/mvp",
           { id: player.id },
           {
             headers: {
@@ -233,14 +233,14 @@ export function PlayerDashboard() {
     try {
       const token = Cookies.get("token");
       if (goat?.player.id === player.id) {
-        await axios.delete(`http://localhost:3000/api/v1/admin/manOfTheMatch/${goat.id}`, {
+        await axios.delete(`https://be-most.smktelkom-mlg.sch.id/api/v1/admin/manOfTheMatch/${goat.id}`, {
           headers: {
             Authorization: `Bearer ${token}`,
           },
         });
       } else {
         await axios.post(
-          "http://localhost:3000/api/v1/admin/manOfTheMatch",
+          "https://be-most.smktelkom-mlg.sch.id/admin/manOfTheMatch",
           { id: player.id },
           {
             headers: {

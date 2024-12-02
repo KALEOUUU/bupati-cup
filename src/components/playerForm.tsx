@@ -35,7 +35,7 @@ export function AddPlayerForm({ onClose, onSuccess }: { onClose: () => void, onS
     const fetchClubs = async () => {
       try {
         const token = Cookie.get('token');
-        const response = await axios.get('http://localhost:3000/api/v1/admin/club/getAll', {
+        const response = await axios.get('https://be-most.smktelkom-mlg.sch.id/api/v1/admin/club/getAll', {
           headers: {
             Authorization: `Bearer ${token}`,
           },
@@ -126,7 +126,7 @@ export function AddPlayerForm({ onClose, onSuccess }: { onClose: () => void, onS
       });
 
       // Make API request
-      const response = await axios.post('http://localhost:3000/api/v1/admin/pemain', formData, {
+      const response = await axios.post('https://be-most.smktelkom-mlg.sch.id/api/v1/admin/pemain', formData, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'multipart/form-data'

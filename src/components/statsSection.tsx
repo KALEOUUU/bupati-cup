@@ -35,7 +35,7 @@ export default function StatsSection() {
   const fetchData = async () => {
     setIsLoading(true)
     try {
-      const res = await axios.get("http://localhost:3000/api/v1/user/highligh")
+      const res = await axios.get(`https://be-most.smktelkom-mlg.sch.id/api/v1/user/highligh`)
       setData(res.data.message)
     } catch(error) {
       console.log(error)

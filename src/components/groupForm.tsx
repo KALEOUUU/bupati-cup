@@ -16,7 +16,7 @@ export function GroupForm() {
     e.preventDefault()
     try {
       const token = Cookies.get('token')
-      const res = await axios.post("http://localhost:3000/api/v1/admin/group", {
+      const res = await axios.post("https://be-most.smktelkom-mlg.sch.id/api/v1/admin/group", {
         nama: name
       }, {
         headers: {
@@ -26,7 +26,7 @@ export function GroupForm() {
       if (res.status == 200) {
         alert("Group berhasil dibuat")
         router.refresh() // Refresh halaman setelah berhasil membuat grup
-        router.push("http://localhost:4000/dashboard")
+        router.push("http://mosh.smktelkom-mlg.sch.id")
       }
     } catch (error) {
       alert(error)

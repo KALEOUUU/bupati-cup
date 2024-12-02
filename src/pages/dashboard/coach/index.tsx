@@ -23,7 +23,7 @@ export default function CoachDashboard() {
   const fetchCoaches = async () => {
     try {
       const token = Cookie.get('token');
-      const response = await axios.get('http://localhost:3000/api/v1/admin/coach', {
+      const response = await axios.get('https://be-most.smktelkom-mlg.sch.id/api/v1/admin/coach', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -46,7 +46,7 @@ export default function CoachDashboard() {
   const handleDeleteCoach = async (coachId: number) => {
     try {
       const token = Cookie.get('token');
-      await axios.delete(`http://localhost:3000/api/v1/admin/coach/${coachId}`, {
+      await axios.delete(`https://be-most.smktelkom-mlg.sch.id/api/v1/admin/coach/${coachId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

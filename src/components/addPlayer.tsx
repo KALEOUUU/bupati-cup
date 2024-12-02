@@ -19,7 +19,7 @@ export function AddPlayerForm({ onClose }: { onClose: () => void }) {
   const fetchClubs = async () => {
     try {
       const token = Cookie.get('token')
-      const response = await axios.get('http://localhost:3000/api/v1/admin/club/getAll', {
+      const response = await axios.get('https://be-most.smktelkom-mlg.sch.id/api/v1/admin/club/getAll', {
         headers: {
           Authorization: `Bearer ${token}`,
         },

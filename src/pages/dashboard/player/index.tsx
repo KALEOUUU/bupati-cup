@@ -26,7 +26,7 @@ export default function PlayerDashboard() {
   const fetchPlayers = async () => {
     try {
       const token = Cookie.get('token')
-      const response = await axios.get('http://localhost:3000/api/v1/admin/pemain', {
+      const response = await axios.get('https://be-most.smktelkom-mlg.sch.id/admin/pemain', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -45,7 +45,7 @@ export default function PlayerDashboard() {
   const searchPlayers = async (query: string) => {
     try {
       const token = Cookie.get('token')
-      const response = await axios.get(`http://localhost:3000/api/v1/admin/pemain?search=${query}`, {
+      const response = await axios.get(`https://be-most.smktelkom-mlg.sch.id/admin/pemain?search=${query}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -64,7 +64,7 @@ export default function PlayerDashboard() {
   const handleUpdatePlayer = async (playerId: number, playerData: FormData) => {
     try {
       const token = Cookie.get('token')
-      await axios.put(`http://localhost:3000/api/v1/admin/pemain/${playerId}`, playerData, {
+      await axios.put(`https://be-most.smktelkom-mlg.sch.id/api/v1/admin/pemain/${playerId}`, playerData, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data'
@@ -80,7 +80,7 @@ export default function PlayerDashboard() {
   const handleDeletePlayer = async (playerId: number) => {
     try {
       const token = Cookie.get('token')
-      await axios.delete(`http://localhost:3000/api/v1/admin/pemain/${playerId}`, {
+      await axios.delete(`https://be-most.smktelkom-mlg.sch.id/api/v1/admin/pemain/${playerId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -120,7 +120,7 @@ export default function PlayerDashboard() {
         
         try {
           const goalResponse = await axios.put(
-            `http://localhost:3000/api/v1/admin/pemain/${goalEndpoint}/${playerId}`, 
+            `https://be-most.smktelkom-mlg.sch.id/api/v1/admin/pemain/${goalEndpoint}/${playerId}`, 
             {},
             {
               headers: { Authorization: `Bearer ${token}` }
@@ -149,7 +149,7 @@ export default function PlayerDashboard() {
         
         try {
           const assistResponse = await axios.put(
-            `http://localhost:3000/api/v1/admin/pemain/${assistEndpoint}/${playerId}`,
+            `https://be-most.smktelkom-mlg.sch.id/api/v1/admin/pemain/${assistEndpoint}/${playerId}`,
             {},
             {
               headers: { Authorization: `Bearer ${token}` }

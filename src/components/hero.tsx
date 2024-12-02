@@ -48,7 +48,7 @@ export function HeroSection() {
   const newsData = async () => {
     setIsLoading(true)
     try {
-      const res = await axios.get("http://localhost:5000/news")
+      const res = await axios.get(`https://be-most.smktelkom-mlg.sch.id/api/v1/user/news`)
       if (res.data && res.data.length > 0) {
         setNews(res.data)
       } else {

@@ -19,16 +19,13 @@ export default function LoginPage() {
   // Submit login form
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    setError('') // Reset error state
-    console.log('Submitting login with:', { username, password }) // Debugging log
+    setError('') // Reset error state // Debugging log
 
     try {
-      const response = await axios.post('http://localhost:3000/api/v1/auth/', {
+      const response = await axios.post('https://be-most.smktelkom-mlg.sch.id/api/v1/auth/', {
         username,
         password,
-      })
-
-      console.log('Login successful:', response.data) // Debugging log
+      }) // Debugging log
 
       if (response.data.token) {
         // Save token to cookies using js-cookie

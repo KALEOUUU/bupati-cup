@@ -29,7 +29,7 @@ export default function DashboardPage() {
   const fetchData = async () => {
     try {
       const token = Cookie.get('token')
-      const teamsResponse = await axios.get('http://localhost:3000/api/v1/admin/club/getAll', {
+      const teamsResponse = await axios.get('https://be-most.smktelkom-mlg.sch.id/api/v1/admin/club/getAll', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -61,7 +61,7 @@ export default function DashboardPage() {
   const updateTeamStats = async (id: number, stat: string, operation: string) => {
     try {
       const token = Cookie.get('token')
-      await axios.put(`http://localhost:3000/api/v1/admin/club/${operation}-${stat}/${id}`, {}, {
+      await axios.put(`https://be-most.smktelkom-mlg.sch.id/api/v1/admin/club/${operation}-${stat}/${id}`, {}, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -84,7 +84,7 @@ export default function DashboardPage() {
   const handleDeleteTeam = async (clubId: number) => {
     try {
       const token = Cookie.get('token')
-      await axios.delete(`http://localhost:3000/api/v1/admin/club/${clubId}`, {
+      await axios.delete(`https://be-most.smktelkom-mlg.sch.id/api/v1/admin/club/${clubId}`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },

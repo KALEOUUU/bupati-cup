@@ -30,7 +30,7 @@ const Clasement: React.FC = () => {
   const fetcher = async () => {
     try {
       setIsLoading(true);
-      const response = await axios.get("http://localhost:3000/api/v1/user/clasements")
+      const response = await axios.get(`https://be-most.smktelkom-mlg.sch.id/api/v1/user/clasements`)
 
       // Ensure the response contains the expected format
       if (response.data && Array.isArray(response.data.message)) {

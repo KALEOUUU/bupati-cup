@@ -37,7 +37,7 @@ export default function AddCoach({ onClose }: AddCoachProps) {
   const fetchClubs = async () => {
     try {
       const token = Cookie.get('token');
-      const response = await axios.get('http://localhost:3000/api/v1/admin/club/name', {
+      const response = await axios.get('https://be-most.smktelkom-mlg.sch.id/api/v1/admin/club/name', {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -85,7 +85,7 @@ export default function AddCoach({ onClose }: AddCoachProps) {
         formDataToSend.append('photo', formData.imageFile); // Changed from 'image' to 'foto'
       }
 
-      await axios.post('http://localhost:3000/api/v1/admin/coach', formDataToSend, {
+      await axios.post('https://be-most.smktelkom-mlg.sch.id/admin/coach', formDataToSend, {
         headers: {
           Authorization: `Bearer ${token}`,
           'Content-Type': 'multipart/form-data'

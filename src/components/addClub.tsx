@@ -45,7 +45,7 @@ export function AddClub({ onClose }: { onClose: () => void }) {
         formData.append('photo', clubData.photo)
       }
 
-      await axios.post('http://localhost:3000/api/v1/admin/club', formData, {
+      await axios.post('https://be-most.smktelkom-mlg.sch.id/api/v1/admin/club', formData, {
         headers: {
           'Authorization': `Bearer ${token}`,
           'Content-Type': 'multipart/form-data'
@@ -56,6 +56,7 @@ export function AddClub({ onClose }: { onClose: () => void }) {
       setClubData({ nama: '', groupId: '', photo: null })
       onClose()
     } catch (error) {
+      alert(error)
       alert('Gagal menambahkan klub')
       console.error(error)
     } finally {
@@ -68,7 +69,7 @@ export function AddClub({ onClose }: { onClose: () => void }) {
       setLoading(true)
       try {
         const token = Cookies.get('token')
-        const response = await axios.get("http://localhost:3000/api/v1/admin/group", {
+        const response = await axios.get("https://be-most.smktelkom-mlg.sch.id/api/v1/admin/group", {
           headers: {
             'Authorization': `Bearer ${token}`
           }

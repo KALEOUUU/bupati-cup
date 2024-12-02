@@ -95,7 +95,7 @@ export function PlayerCard({ player, onStatsUpdate, onAchievementUpdate }: Playe
       }
 
       const response = await axios.put(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/v1/admin/pemain/${player.id}`,
+        `https://be-most.smktelkom-mlg.sch.id/api/v1/admin/pemain/${player.id}`,
         formData,
         {
           headers: {
@@ -241,7 +241,7 @@ export function PlayerCard({ player, onStatsUpdate, onAchievementUpdate }: Playe
       };
 
       const response = await axios.put(
-        `${process.env.NEXT_PUBLIC_API_URL}/api/v1/admin/pemain/${player.id}/achievements`,
+        `https://be-most.smktelkom-mlg.sch.id/api/v1/admin/pemain/${player.id}/achievements`,
         { achievements: newAchievements },
         {
           headers: {

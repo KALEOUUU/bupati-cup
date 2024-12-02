@@ -23,7 +23,7 @@ export function GroupList() {
   const handleDelete = async (groupId: string) => {
     try {
       const token = Cookies.get('token')
-      await axios.delete(`http://localhost:3000/api/v1/admin/group/${groupId}`, {
+      await axios.delete(`https://be-most.smktelkom-mlg.sch.id/api/v1/admin/group/${groupId}`, {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -38,7 +38,7 @@ export function GroupList() {
   const handleEdit = async (groupId: string, updatedData: Partial<Group>) => {
     try {
       const token = Cookies.get('token')
-      await axios.put(`http://localhost:3000/api/v1/admin/group/${groupId}`, {
+      await axios.put(`https://be-most.smktelkom-mlg.sch.id/api/v1/admin/group/${groupId}`, {
         nama: updatedData.nama // Mengirim nama terbaru dalam request body
       }, {
         headers: {
@@ -70,7 +70,7 @@ export function GroupList() {
   const fetcher = async () => {
     try {
       const token = Cookies.get('token')
-      const response = await axios.get("http://localhost:3000/api/v1/admin/group", {
+      const response = await axios.get("https://be-most.smktelkom-mlg.sch.id/api/v1/admin/group", {
         headers: {
           'Authorization': `Bearer ${token}`
         }

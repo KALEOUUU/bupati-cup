@@ -18,7 +18,7 @@ const TopScorerTable = () => {
     const fetcher = async () => {
         setLoading(true);
         try {
-            const res = await axios.get("http://localhost:3000/api/v1/user/topscores");
+            const res = await axios.get(`https://be-most.smktelkom.mlg/api/v1/user/topscores`);
             setPlayers(res.data.message);
         } catch (error) {
             console.log(error)
@@ -67,7 +67,7 @@ const TopScorerTable = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {players == undefined? (
+                                    {players == undefined || players.length == 0 ? (
                                         <tr>
                                             <td colSpan={4} className="text-center p-3">
                                                 <h1>Scores is processing</h1>
