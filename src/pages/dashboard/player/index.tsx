@@ -9,12 +9,12 @@ import Cookie from 'js-cookie'
 
 interface Player {
   id: number;
-  name: string;
-  position: string;
-  number: number;
-  goals: number;
-  assists: number;
-  image: string;
+  photo: string,
+  nama: string,
+  posisi: string,
+  goal: string,
+  club: string,
+  assist: string
 }
 
 export default function PlayerDashboard() {
@@ -210,19 +210,7 @@ export default function PlayerDashboard() {
           </div>
         )}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {filteredPlayers.map((player) => (
-            <PlayerCard
-              nama={player.name}
-              key={player.id}
-              player={player}
-              onStatsUpdate={(stats: { goals: number; assists: number }) => handleStatsUpdate(player.id, stats, {
-                goals: player.goals,
-                assists: player.assists
-              })}
-              onDelete={() => handleDeletePlayer(player.id)}
-              onUpdate={(data: FormData) => handleUpdatePlayer(player.id, data)}
-            />
-          ))}
+          
         </div>
       </main>
     </div>
